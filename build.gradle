@@ -1,0 +1,111 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+// 添加maven依赖
+apply plugin: 'maven'
+
+// 配置上传指令
+//uploadArchives {
+//    configuration = configurations.archives
+//    repositories {
+//        mavenDeployer {
+//            repository(url: MAVEN_REPO_RELEASE_URL) {
+//                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+//            }
+//            pom.project {
+//                version '0.1.0'
+//                artifactId 'cleanarchitecture'
+//                groupId GROUP_ID
+//                packaging TYPE
+//                description DESCRIPTION
+//            }
+//        }
+//    }
+//}
+
+
+//buildscript {
+//
+//    ext {
+//        kotlin_version = '1.1.3-2'
+//    }
+//    repositories {
+//        jcenter()
+//        mavenCentral()
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+//
+//    }
+//    dependencies {
+//        // 添加Kotlin支持
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//    }
+//}
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+//ext {
+//    kotlin_version = '1.1.3-2'
+//
+//    android_support_version = '25.2.0'
+////    constraint_layout_version = '1.0.2'
+//    constraint_layout_version = '1.1.3'
+//
+//}
+
+dependencies {
+
+    // 非常关键的一个模拟效果 == 圆角支持和 扩展属性
+//    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+
+    // Kotlin 类库： 支持Kotlin语言
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.21"
+    // 官方扩展
+    implementation "com.android.support:appcompat-v7:27.1.1"
+    implementation "com.android.support:support-v4:27.1.1"
+    // recyclerview 官方库
+    implementation "com.android.support:recyclerview-v7:27.1.1"
+    // 约束布局 == 作为模拟 iOS 中 UIView 概念的扩展出现
+    implementation "com.android.support.constraint:constraint-layout:1.1.3"
+    // Section Layout Managers (SLM)
+    implementation 'com.tonicartos:superslim:0.4.13'
+    // 模拟卡片圆角等概念， iOS中一个统一的类， Android中分成几个
+    implementation "com.android.support:cardview-v7:27.1.1"
+}
